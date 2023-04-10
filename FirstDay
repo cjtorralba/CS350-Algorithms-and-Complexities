@@ -1,0 +1,149 @@
+CS350: Algorithms and Complexities
+
+Office: FAB 120-17
+Hours: TBA
+
+Text: Introduction to the Design and Analysis of Algorithms, Third Edition, Anany Levitin
+
+Exams: Any physical notes allowed
+
+Grading Policy:
+	Homework/Lab: 30% (Lowest score will be dropped)
+	Midterm: 35% of grade
+	Final Exam: 35% of grade
+
+	-0 on either final or midterm results in a failure of the class
+
+
+04/04/2023==========================================================================================
+
+Computer Algorithm: Set of instructions
+
+Sorting Data: Many different sorting algorithms
+	Merge sort *
+	Bubble
+	Quick *
+	Selection *
+	
+	BOGO
+
+Searching Data:
+
+
+Graph:
+
+
+Two things we care about 
+
+	Time Complexity:
+		How much constant time operation was there?
+		Ex: X = X + 1;
+
+
+	Space Complexity:
+		To measure the complexity either in Time or Space we use:
+		Asymptotic Analysis aka: Big 'O'
+
+       0   1   2    3    4    5    6
+data [100][50][93][276][512][1000][3]
+
+n = 7
+
+n is the SIZE of the input
+
+
+Search: say we are looking for number 512, which is the KEY
+
+search(512, data);
+
+say we wanted the location, then this function would return 4.
+
+Lets say we couldn't find it, then we would return something like -1
+
+We are considering each data item as unique in this case
+
+code:
+
+
+Cx = Constant time
+
+int search(int n /* length of array */
+		, int* data /*array of items*/
+		, int key /*search item*/
+		) {
+
+	for(int i = 0 (C1); i < n (C2) ; ++i (C3)) {
+		if(data[i] == key) { C4
+			return i; C5
+		}
+	}
+	return -1; C6
+}
+
+This is called a linear search.
+
+Worst time for linear search (L_(ls)(n)) = (C1 + C6) + (C2 + C3 + C5) + n
+					      \/             \/
+					 =    K1     +       K2       + n
+
+					 =  n
+
+Best case = C1 + C2 + C3 + C4
+	  = K1	
+
+Worst case scenario?
+	Item is not in the list aka: fialed to find key
+
+
+
+
+04/05/2023============================================================
+
+
+
+Continuing from yesterday:
+
+Talked about searching through array, if it's not there we would return something like -1
+
+Worst case linear time we say O(n), N time complexity
+
+Big O notation represents worst case scenario
+
+
+Now what if the data was sorted?
+	For linear search, worst case would remain the same
+
+Search algo that requires sorted data but is very fast? BINARY SEARCH:
+
+
+Ex: Number from 1 - 100, incluse: [1, 100]
+
+	First Guess, 50: TOO HIGH
+	Narrows it down to [1,49]
+
+	Next Guess, 24: TOO HIGH
+	Narrows it down to [1,23]
+
+	Next Guess, 11: TOO LOW
+	Narrows it down to [12,23]
+
+	Find the average of both, 23 + 12 = 35, 35 / 2 = 17
+	Next Guess, 17: TOO LOW
+	Narrows it down to [18, 23]
+
+	Next Guess, 20: TOO HIGH
+	Narrows it down to [18, 19]
+
+	Next Guess, 18: TOO LOW
+	Narrows it down to [19]
+
+	Next Guess, 19: CORRECT
+	
+Worst Case scenario from 1 to 100 is 7 guesses
+Binary search should never take more than 7 guesses 
+ALWAYS GUESS IN THE MIDDLE
+
+Binary Search: Interval Halfing technique aka: Divide and conguer strategy
+
+
+So what is the efficieny of binary search? Log_2(n)
