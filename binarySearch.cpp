@@ -56,6 +56,22 @@ int linear_search(int lo, int hi, int key)
 int binary_search(int lo, int hi, int key)
 	// if key is found in the array, return the location, otherwise return -1  
 {
+
+    for(int i = hi / 2; lo <= hi; i = lo + (hi - lo) / 2) {
+        if(x[i] == key) {
+            return i;
+        }
+        else if (x[i] < key) {
+            lo = ++i;
+        }
+        else {
+           hi = --i;
+        }
+        return -1;
+    }
+
+
+    /*
 	int iterations = 0;
 
 	for(int i = hi / 2; i != M || i == 0; ++i) {
@@ -78,6 +94,10 @@ int binary_search(int lo, int hi, int key)
 		++iterations;
 	}
 	return -1 ;
+
+
+
+     */
 }
 
 
