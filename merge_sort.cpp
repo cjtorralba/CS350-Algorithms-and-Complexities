@@ -53,7 +53,7 @@ void combineArrays(double arr[], int left, int middle, int right) {
 	    ++l;
         } 
 	
-	else {                                          // If we reached this it means that element in the right array is smaller, or we went horribly wrong with our logic somehwere
+	else {                                          // If we reached this it means that element in the right array is smaller, or we went horribly wrong with our logic somewhere
             arr[j] = tempArrRight[r];
 	    ++r;
         }
@@ -87,7 +87,7 @@ void mergeSort(double arr[], int left, int right) {
 
 int main() {
 
-	int n, k;
+	int n;
 
 	double x[1000], data;
 
