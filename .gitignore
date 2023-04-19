@@ -1,4 +1,9 @@
 # Ignore binary files
 *.out
+
+# Ignore executables
+*.exe
+
+
 .idea
 
