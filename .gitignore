@@ -4,6 +4,9 @@
 # Ignore executables
 *.exe
 
+# Ignore swap files
+*.swp
+
 
 .idea
 

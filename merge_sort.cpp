@@ -39,13 +39,23 @@ void combineArrays(double arr[], int left, int middle, int right) {
     for (j = left; j <= right; ++j) {
 
         if (l == leftArrSize) {                         // Check to see if left array is full
-            arr[j] = tempArrRight[r++];
-        } else if (r == rightArrSize) {                   // Check to see if right array is full
-            arr[j] = tempArrLeft[l++];
-        } else if (tempArrLeft[l] <= tempArrRight[r]) {   //Compare element in left array to one in right
-            arr[j] = tempArrLeft[l];
-        } else {                                          // If we reached this it means that element in the right array is smaller, or we went horribly wrong with our logic somehwere
             arr[j] = tempArrRight[r];
+	    ++r;
+        } 
+	
+	else if (r == rightArrSize) {                   // Check to see if right array is full
+            arr[j] = tempArrLeft[l];
+	    ++l;
+        } 
+	
+	else if (tempArrLeft[l] <= tempArrRight[r]) {   //Compare element in left array to one in right
+            arr[j] = tempArrLeft[l];
+	    ++l;
+        } 
+	
+	else {                                          // If we reached this it means that element in the right array is smaller, or we went horribly wrong with our logic somehwere
+            arr[j] = tempArrRight[r];
+	    ++r;
         }
     }
 }
@@ -59,44 +69,49 @@ void combineArrays(double arr[], int left, int middle, int right) {
  */
 void mergeSort(double arr[], int left, int right) {
 
-    if (left < right) {
-        int middle = left + (right - 1) / 2; // Locate middle of array
+	if (left >= right) {
+		return;
+	}
+	int middle = left + (right - left) / 2; // Locate middle of array
 
-        mergeSort(arr, left, middle);  // Recursive call on bottom half of array
-        mergeSort(arr, middle + 1, right); // Recursive call on top half of array
+	mergeSort(arr, left, middle);  // Recursive call on bottom half of array
+	mergeSort(arr, middle + 1, right); // Recursive call on top half of array
 
-        combineArrays(arr, left, middle, right); //Combines/sorts array
-    }
+	combineArrays(arr, left, middle, right); //Combines/sorts array
 }
+
+
+
+
 
 
 int main() {
 
-    int n, k;
+	int n, k;
 
-    double x[1000], data;
+	double x[1000], data;
 
-    scanf("%d", &n);
-    for (int i = 0; i < n; ++i) {
-        scanf("%lf", &data);
-        x[i] = data;
-    }
+	scanf("%d", &n);
+	for (int i = 0; i < n; ++i) {
+		scanf("%lf", &data);
+		x[i] = data;
+	}
 
-    // Printing unsorted data
-    printf("Unsorted:\n");
-    for (int i = 0; i < n; ++i) {
-        printf("%d: %lf", i, x[i]);
-    }
+	// Printing unsorted data
+	printf("Unsorted:\n");
+	for (int i = 0; i < n; ++i) {
+		printf("%d: %lf\n", i, x[i]);
+	}
 
-    // Sorting array
-    mergeSort(x, 0, n);
+	// Sorting array
+	mergeSort(x, 0, n);
 
-    // Printing sorted data
-    printf("Sorted:\n");
-    for (int i = 0; i < n; ++i) {
-        printf("%d: %lf", i, x[i]);
-    }
+	// Printing sorted data
+	printf("\nSorted:\n");
+	for (int i = 0; i < n; ++i) {
+		printf("%d: %lf\n", i, x[i]);
+	}
 
 
-    return 0;
+	return 0;
 }
