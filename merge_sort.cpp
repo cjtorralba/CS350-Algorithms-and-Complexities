@@ -22,8 +22,8 @@ void combineArrays(double arr[], int left, int middle, int right) {
 
 
     // Create temp arrays
-    int tempArrLeft[leftArrSize];
-    int tempArrRight[rightArrSize];
+    double tempArrLeft[leftArrSize];
+    double tempArrRight[rightArrSize];
 
     // Populate temp arrays
     for (int i = 0; i < leftArrSize; ++i) {
@@ -109,7 +109,7 @@ int main() {
 	// Printing sorted data
 	printf("\nSorted:\n");
 	for (int i = 0; i < n; ++i) {
-		printf("%d: %lf\n", i, x[i]);
+		printf("%d: %lf\n", i + 1, x[i]);
 	}
 
 
