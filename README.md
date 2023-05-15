@@ -187,7 +187,21 @@ n^3 is NOT in O(n^2)
 0.00000001n^3 is NOT in O(n^2)
 
 
-On the other hand, Big Omega(g(n)), is the set of all functions with a higher or same order of growth of g(n)
+On the other hand, **Big Omega(g(n))**, is the set of all functions with a higher or same order of growth of g(n)
+Example: n^3 is in Omega(n^2):
+  n^3 >= n^2 for all n >= 0
+
+
+**Big Theta** is denoted with t(n) is in Big Theta(g(n)) if t(n) is bounded botj above and below by some constant multiple of g(n) for all large n.
+If there exists some positive constants c_1 and c_2 and some non-negative integer n_0 such that c_2*g(n) <= t(n) <= c_1*g(n) for all n >= n_0
+
+Lets prove (1/2) * n(n-1) is in Big theta(n^2). First we prove the right inequality, upper bound
+
+    (1/2) * n(n-1) = (1/2)n^2 - (1/2)n <= (1/2)n^2 for all n >= 0
+
+Next we prove the left inequality, the lower bound
+    
+    (1/2) * n(n-1) = (1/2)n^2 - (1/2)n >= (1/4)n^2 for all n >= 2
 
 
 **Time Complexities Notation**
@@ -199,4 +213,9 @@ exists some positive constant *c* and some non-negative integer n_0 such that `t
 
 Example: let us formal prove one of the assertions made in the introduction: 100n + 5 in O(n^2)
 100n + 5 <= 100n + n (for all n >= 5) = 101n <= 101n^2
+
+
+### Notes 05/15/2023
+
+
 
