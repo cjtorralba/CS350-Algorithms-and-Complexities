@@ -215,7 +215,34 @@ Example: let us formal prove one of the assertions made in the introduction: 100
 100n + 5 <= 100n + n (for all n >= 5) = 101n <= 101n^2
 
 
-### Notes 05/15/2023
 
 
 
+### Pebble Collecting Robot
+
+Rod cutting problem:
+
+Goal: Maximize profits, company makes pipe `n` inches long
+
+Say `n = 5`
+
+Say 5" rod would sell for 10$, then p_5 = 10$
+
+We need to find the amount of smaller pieces to make up something like 5, to maximize the profit.
+
+This algorithm should work without know the price.
+
+
+**Next Problem**
+Minimum Sum Descent:
+
+**N-choose-K**:
+
+(5/3) = 5!/(5-3)!*3!
+
+A B C D E:
+
+How many permutations without repeats can we have
+
+
+How many different groupings can I have
