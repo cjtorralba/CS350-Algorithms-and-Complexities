@@ -63,7 +63,63 @@ void rod_cutting_problem(int rod_sizes[], int rod_price[], int arr_size) {
 }
 
 
-void minimum_sum_decent(int arr[], int num_levels) {
+void construct_pyramid(int* list, int** pyramid, int num_levels) {
+
+    // Total number of elements
+    int arr_size = 0;
+
+    // Getting total number of elements in array
+    for (int i = num_levels; i > 0; --i) {
+        arr_size += i;
+    }
+
+    // Allocating inital tiers
+    pyramid = new int *[num_levels + 1];
+
+
+    // Allocating elements in each level
+    for (int level = 1; level <= num_levels; ++level) {
+        pyramid[level] = new int[level + 1];
+    }
+
+    // Initial Index for looping though array of numbers
+    int current_index = 0;
+
+    // Setting each index
+    for (int level = 1; level <= num_levels; ++level) {
+        for (int index = 1; index <= level; ++index) {
+            // Populate real triangle
+            pyramid[level][index] = list[current_index];
+
+
+            ++current_index;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+int minimum_sum_decent(int** pyramid, int num_levels, int tier, int index) {
+
+    if (tier == num_levels) {
+        return 0;
+    }
+
+
+   int minimum_sum = 0;
+    int left = minimum_sum_decent(pyramid, num_levels, tier + 1, index);
+    int right = minimum_sum_decent(pyramid, num_levels, tier + 1, index + 1);
+    return (minimum_sum = pyramid[tier][index] + left > right ? right : left);
+
+
+
+    /*
     // Total number of elements
     int arr_size = 0;
 
@@ -157,16 +213,7 @@ void minimum_sum_decent(int arr[], int num_levels) {
         }
     }
 
-    // Now time to traverse through the lists again to find optimal path
-
-    for (int level = 1; level <= num_levels; ++level) {
-
-
-
-
-
-    }
-
+*/
 }
 
 
@@ -187,6 +234,9 @@ int main(int argc, char **argv) {
                            5, 4,
                            1, 4, 7,
                            8, 6, 9, 6};
+
+    int** pyramid;
+    construct_pyramid(triangle_nums, pyramid, 4);
 
     minimum_sum_decent(triangle_nums, num_levels);
 
