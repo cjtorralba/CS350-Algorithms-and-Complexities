@@ -63,10 +63,83 @@ void rod_cutting_problem(int rod_sizes[], int rod_price[], int arr_size) {
 }
 
 
-void construct_pyramid(int* list, int** pyramid, int num_levels) {
+
+
+
+
+
+
+int minimum_sum_decent(int** pyramid, int num_levels) {
+
+   int minimum_sum = INT16_MAX;
+
+    for (int level = num_levels; level > 0; --level) {
+
+        for (int level_index = 1; level_index <= level; ++level_index) {
+
+                // At lowest level, aka our base cases
+                if (level == num_levels) {
+                    continue;
+                }
+
+                else {
+
+                    // Check lower sums
+
+                    int left = pyramid[level+1][level_index];
+                    int right = pyramid[level+1][level_index + 1];
+
+                    if (left < right) { // Left is cheaper
+                       pyramid[level][level_index] += left;
+                    } else { // Right is cheaper
+                        pyramid[level][level_index] += right;
+                    }
+
+                }
+        }
+
+    }
+
+    // Displaying pyramid after setting all the locations
+    // Setting each index
+    for (int level = 1; level <= num_levels; ++level) {
+        printf("Level %d: ", level);
+        for (int index = 1; index <= level; ++index) {
+            // Populate real triangle
+            printf( "%d ", pyramid[level][index]);
+        }
+        printf("\n");
+    }
+
+    return pyramid[1][1];
+
+}
+
+
+int main(int argc, char **argv) {
+
+    int rod_size[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int rod_price[] = {0, 1, 5, 8, 9, 10, 17, 16, 20, 14, 12};
+    int arr_size = 11;
+
+    //  rod_cutting_problem(rod_size, rod_price, arr_size);
+
+
+
+
+    int num_levels = 5;
+
+    int triangle_nums[] = {2,
+                           5, 4,
+                           1, 4, 7,
+                           8, 6, 9, 6,
+                           50, 40, 30, 20, 1};
+
+
+    int** pyramid = NULL;
 
     // Total number of elements
-    int arr_size = 0;
+    arr_size = 0;
 
     // Getting total number of elements in array
     for (int i = num_levels; i > 0; --i) {
@@ -89,156 +162,16 @@ void construct_pyramid(int* list, int** pyramid, int num_levels) {
     for (int level = 1; level <= num_levels; ++level) {
         for (int index = 1; index <= level; ++index) {
             // Populate real triangle
-            pyramid[level][index] = list[current_index];
-
-
+            printf("Inserting %d into pyramid[%d][%d]\n", triangle_nums[current_index], level, index);
+            pyramid[level][index] = triangle_nums[current_index];
             ++current_index;
         }
     }
 
-}
 
+    int min_sum = minimum_sum_decent(pyramid, num_levels);
 
-
-
-
-
-
-
-int minimum_sum_decent(int** pyramid, int num_levels, int tier, int index) {
-
-    if (tier == num_levels) {
-        return 0;
-    }
-
-
-   int minimum_sum = 0;
-    int left = minimum_sum_decent(pyramid, num_levels, tier + 1, index);
-    int right = minimum_sum_decent(pyramid, num_levels, tier + 1, index + 1);
-    return (minimum_sum = pyramid[tier][index] + left > right ? right : left);
-
-
-
-    /*
-    // Total number of elements
-    int arr_size = 0;
-
-    // THE PYRAMID
-    int **arr_triangle = nullptr;
-
-    // THE Optimal moves for each index
-    int **optimal_moves = nullptr;
-
-    // Getting total number of elements in array
-    for (int i = num_levels; i > 0; --i) {
-        arr_size += i;
-    }
-
-    // Allocating inital tiers
-    arr_triangle = new int *[num_levels + 1];
-    optimal_moves = new int *[num_levels + 1];
-
-
-    // Allocating elements in each level
-    for (int level = 1; level <= num_levels; ++level) {
-        arr_triangle[level] = new int[level + 1];
-        optimal_moves[level] = new int[level + 1];
-    }
-
-    // Initial Index for looping though array of numbers
-    int current_index = 0;
-
-    // Setting each index
-    for (int level = 1; level <= num_levels; ++level) {
-        for (int index = 1; index <= level; ++index) {
-            // Populate real triangle
-            arr_triangle[level][index] = arr[current_index];
-
-            // Populate optimal move array to 0
-            optimal_moves[level][index] = -1;
-
-
-            ++current_index;
-        }
-    }
-
-    // Displaying pyramid
-    for (int level = 1; level <= num_levels; ++level) {
-        printf("Level %d: ", level);
-        for (int index = 1; index <= level; ++index) {
-            printf("%d ", arr_triangle[level][index]);
-        }
-        printf("\n");
-    }
-
-
-
-
-
-    //========Doing actual calculations now ===========
-
-
-    // Ours moves, moving right it a 0, moving left is a 1
-    unsigned moves = 0;
-
-
-
-    // Setting base case
-    optimal_moves[1][1] = arr_triangle[1][1];
-
-//    printf("ASLD %d", optimal_moves[1][1]);
-
-    for (int level = 1; level < num_levels; ++level) {
-
-        // Possible routes
-        for (int index = 1; index <= level; index++) {
-            int sub_index_left = level;
-            int sub_index_right = level + 1;
-
-            int move_left;
-            int move_right;
-
-            if (optimal_moves[level][index] != -1) {
-                move_left = optimal_moves[level][index] + arr_triangle[level + 1][sub_index_left];
-                move_right = optimal_moves[level][index] + arr_triangle[level + 1][sub_index_right];
-
-                move_left > move_right ? optimal_moves[level][index] = move_right: optimal_moves[level][index] = move_left;
-            } else {
-                move_left = arr_triangle[level][index] + arr_triangle[level + 1][sub_index_left];
-                move_right = arr_triangle[level][index] + arr_triangle[level + 1][sub_index_right];
-
-                move_left > move_right ? optimal_moves[level][index] = move_right : optimal_moves[level][index] = move_left;
-            }
-            printf("Tier %d costs: \nMove left cost: %d\nMove right code: %d\n\n", level, move_left, move_right);
-        }
-    }
-
-*/
-}
-
-
-int main(int argc, char **argv) {
-
-    int rod_size[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int rod_price[] = {0, 1, 5, 8, 9, 10, 17, 16, 20, 14, 12};
-    int arr_size = 11;
-
-    //  rod_cutting_problem(rod_size, rod_price, arr_size);
-
-
-
-
-    int num_levels = 4;
-
-    int triangle_nums[] = {2,
-                           5, 4,
-                           1, 4, 7,
-                           8, 6, 9, 6};
-
-    int** pyramid;
-    construct_pyramid(triangle_nums, pyramid, 4);
-
-    minimum_sum_decent(triangle_nums, num_levels);
+    printf("Minimum sum: %d", min_sum);
 
 
     exit(EXIT_SUCCESS);
